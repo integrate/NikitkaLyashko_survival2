@@ -1,16 +1,28 @@
-# This is a sample Python script.
+import random
+import time, model, view
+import pygame
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# picture=pygame.display.set_mode([800,800])
+#
+# rect=pygame.Rect(400,400,50,100)
 
+while True:
+    time.sleep(1 / 60)
+    # event = pygame.event.get()
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # for event_2 in event:
+    #     if event_2.type == 256:
+    #         exit()
+    #
+    # rect.right += 3
+    # print(rect)
+    #
+    # picture.fill([45,76,123])
+    # pygame.draw.rect(picture, [86, 255, 37], rect,1)
+    #
+    #
+    #
+    #
+    #
+    # pygame.display.flip()
+    view.draw()
