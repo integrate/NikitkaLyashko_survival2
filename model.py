@@ -5,15 +5,21 @@ import pygame
 
 
 speed = 8
-speed_t=-5
+speed_t=-10
 rect_s=[]
-rect_around=pygame.Rect(400, 400, 20, 20)
 
-for abc in range(15,400,30):
-    for mnh in range(90,240,30):
+rect_around=pygame.Rect(400, 400, 100, 100)
+
+for abc in range(15,800,30):
+    for mnh in range(90,150,30):
         rect_qwadro = pygame.Rect(100, 100, 30, 30)
-        rect_s.append(rect_qwadro)
         rect_qwadro.center=[abc,mnh]
+        rect_s.append(rect_qwadro)
+
+    for center_2 in range(500,600,30):
+        rect_qwadro_2=pygame.Rect(100, 100, 30, 30)
+        rect_qwadro_2.center=[abc,center_2]
+        rect_s.append(rect_qwadro_2)
 
 
 
@@ -44,8 +50,11 @@ def drive():
     for border in rect_s:
 
         condition_ne_ottalk=rect_around.left >= border.right or rect_around.right <= border.left
-        if condition_ne_ottalk==False and rect_around.top <= border.bottom:
+        if condition_ne_ottalk==False and rect_around.top <= border.bottom and rect_around.bottom < border.top:
+            rect_around.top=border.bottom
             speed_t=5
+
+
 
 
 
