@@ -5,21 +5,21 @@ import pygame
 
 
 speed = 0
-speed_t=-3
+speed_t=-21
 rect_s=[]
 rects_copy=[]
 
 
 rect_around=pygame.Rect(400, 350, 100, 100)
 
-for abc in range(15,800,30):
-    for mnh in range(90,150,30):
-        rect_qwadro = pygame.Rect(100, 100, 30, 30)
+for abc in range(15,800,10):
+    for mnh in range(90,150,10):
+        rect_qwadro = pygame.Rect(100, 100, 10, 10)
         rect_qwadro.center=[abc,mnh]
         rect_s.append(rect_qwadro)
 
-    for center_2 in range(500,600,30):
-        rect_qwadro_2=pygame.Rect(100, 100, 30, 30)
+    for center_2 in range(500,600,10):
+        rect_qwadro_2=pygame.Rect(100, 100, 10, 10)
         rect_qwadro_2.center=[abc,center_2]
         rect_s.append(rect_qwadro_2)
 
@@ -62,7 +62,6 @@ def drive():
 def move_rect_center():
     rect_around.center = [400, 400]
 
-
 def drive_up():
     global  speed_t
     if speed_t < 0:
@@ -73,11 +72,18 @@ def drive_up():
                 rects_copy.remove(border)
 
 
-        for last_rects in rects_copy:
+        for last_rects in rects_copy.copy():
             if rect_around.top <= last_rects.bottom:
                 rect_around.top = last_rects.bottom
                 speed_t=abs(speed_t)
 
+        for black_rect in rects_copy.copy():
+            if rect_around.top==black_rect.bottom:
+                rects_copy.remove(black_rect)
+                rect_s.remove(black_rect)
+
+
 def drive_down():
     global speed_t
     rect_around.top += speed_t
+
