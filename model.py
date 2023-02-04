@@ -4,8 +4,8 @@ import pygame
 
 
 
-speed = 0
-speed_t=-21
+speed = -5
+speed_t=0
 rect_s=[]
 rects_copy=[]
 
@@ -23,6 +23,24 @@ for abc in range(15,800,10):
         rect_qwadro_2.center=[abc,center_2]
         rect_s.append(rect_qwadro_2)
 
+
+for y_center_2 in range(155,480,10):
+    for x_center_2 in range(10,100,10):
+
+        rect_qwadro_2=pygame.Rect(100, 100, 10, 10)
+        rect_qwadro_2.center=[x_center_2,y_center_2]
+        rect_s.append(rect_qwadro_2)
+
+    for center_2x in range(600,800,10):
+        rect_qwadro_2=pygame.Rect(100, 100, 10, 10)
+        rect_qwadro_2.center=[center_2x,y_center_2]
+        rect_s.append(rect_qwadro_2)
+
+
+
+
+
+
 # for i in range(20):
 #     rects_copy.append(random.choice(rect_s))
 
@@ -34,11 +52,10 @@ def drive():
     global speed, speed_t,rects_copy
 
     rects_copy=rect_s.copy()
-    if speed_t > 0:
-        rects_copy.clear()
 
     drive_up()
     drive_down()
+    drive_left()
 
 
     if rect_around.right>=800:
@@ -71,6 +88,7 @@ def drive_up():
             if left_right_ne_ottalk == True or rect_around.bottom <= border.top:
                 rects_copy.remove(border)
 
+        rect_around.top += speed_t
 
         for last_rects in rects_copy.copy():
             if rect_around.top <= last_rects.bottom:
@@ -85,5 +103,37 @@ def drive_up():
 
 def drive_down():
     global speed_t
-    rect_around.top += speed_t
+
+    if speed_t > 0:
+        for border in rects_copy.copy():
+            left_right_ne_ottalk = rect_around.left >= border.right or rect_around.right <= border.left
+
+            if left_right_ne_ottalk == True or rect_around.top >= border.bottom:
+                rects_copy.remove(border)
+
+        rect_around.top += speed_t
+
+        for last_rects in rects_copy.copy():
+            if rect_around.bottom >= last_rects.top:
+                rect_around.bottom = last_rects.top
+                speed_t = -abs(speed_t)
+
+        for black_rect in rects_copy.copy():
+            if rect_around.bottom==black_rect.top:
+                rects_copy.remove(black_rect)
+                rect_s.remove(black_rect)
+
+def drive_left():
+    if speed<0:
+        for border in rects_copy.copy():
+            left_right_ne_ottalk = rect_around.top >= border.bottom or rect_around.bottom <= border.top
+            if left_right_ne_ottalk==True or rect_around.right<=border.left:
+                rects_copy.remove(border)
+        rect_around.right+=speed
+
+
+
+
+
+
 
