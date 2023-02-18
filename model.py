@@ -3,51 +3,6 @@ import random
 import pygame
 
 
-
-speed = -8
-speed_t=5
-rect_s=[]
-rects_copy=[]
-
-
-rect_around=pygame.Rect(400, 350, 20, 20)
-
-for abc in range(17,800,30):
-    for mnh in range(17,180,30):
-        rect_qwadro = pygame.Rect(100, 100, 30, 30)
-        rect_qwadro.center=[abc,mnh]
-        rect_s.append(rect_qwadro)
-
-    # for center_2 in range(500,600,40):
-    #     rect_qwadro_2=pygame.Rect(100, 100, 40, 40)
-    #     rect_qwadro_2.center=[abc,center_2]
-    #     rect_s.append(rect_qwadro_2)
-
-
-for y_center_2 in range(155,480,40):
-    for x_center_2 in range(10,100,40):
-
-        rect_qwadro_2=pygame.Rect(100, 100, 40, 40)
-        rect_qwadro_2.center=[x_center_2,y_center_2]
-        rect_s.append(rect_qwadro_2)
-
-    for center_2x in range(600,800,40):
-        rect_qwadro_2=pygame.Rect(100, 100, 40, 40)
-        rect_qwadro_2.center=[center_2x,y_center_2]
-        rect_s.append(rect_qwadro_2)
-
-
-
-
-
-
-# for i in range(20):
-#     rects_copy.append(random.choice(rect_s))
-
-#
-# and rect_around.top <= border.bottom and rect_around.bottom < border.top:
-# rect_around.top = border.bottom
-
 def drive():
     global speed, speed_t,rects_copy
 
@@ -75,8 +30,15 @@ def drive():
         speed_t=-speed_t
 
     if rect_around.bottom>=800:
-        rect_around.bottom=800
-        speed_t=-speed_t
+        print("Game Over")
+
+def drive_plat():
+    global rect_around,speed, speed_t
+
+    x_plat=rect_plat.centerx
+    y_plat=rect_plat.top
+    rect_around.centerx=x_plat
+    rect_around.bottom=y_plat
 
 
 
@@ -100,7 +62,7 @@ def drive_up():
                 speed_t=abs(speed_t)
 
         for black_rect in rects_copy.copy():
-            if rect_around.top==black_rect.bottom:
+            if black_rect is not rect_plat and rect_around.top==black_rect.bottom:
                 rects_copy.remove(black_rect)
                 rect_s.remove(black_rect)
 
@@ -109,6 +71,7 @@ def drive_down():
     global speed_t
 
     if speed_t > 0:
+
         for border in rects_copy.copy():
             left_right_ne_ottalk = rect_around.left >= border.right or rect_around.right <= border.left
 
@@ -123,9 +86,13 @@ def drive_down():
                 speed_t = -abs(speed_t)
 
         for black_rect in rects_copy.copy():
-            if rect_around.bottom==black_rect.top:
+            if black_rect is not rect_plat and rect_around.bottom==black_rect.top:
                 rects_copy.remove(black_rect)
                 rect_s.remove(black_rect)
+
+
+
+
 
 def drive_left():
     global speed
@@ -142,7 +109,7 @@ def drive_left():
                 speed=abs(speed)
 
         for black_rect in rects_copy.copy():
-            if rect_around.left == black_rect.right:
+            if black_rect is not rect_plat and rect_around.left == black_rect.right:
                 rects_copy.remove(black_rect)
                 rect_s.remove(black_rect)
 
@@ -161,10 +128,48 @@ def drive_right():
                 speed=-abs(speed)
 
         for black_rect in rects_copy.copy():
-            if rect_around.right == black_rect.left:
+            if black_rect is not rect_plat and rect_around.right == black_rect.left:
                 rects_copy.remove(black_rect)
                 rect_s.remove(black_rect)
 
+
+
+
+speed = 0
+speed_t=0
+rect_s=[]
+rects_copy=[]
+
+mod="ball stop"
+
+rect_around=pygame.Rect(300, 730, 20, 20)
+rect_plat=pygame.Rect(406,750,150,10)
+rect_s.append(rect_plat)
+drive_plat()
+
+for abc in range(17,800,30):
+    for mnh in range(17,180,30):
+        rect_qwadro = pygame.Rect(100, 100, 30, 30)
+        rect_qwadro.center=[abc,mnh]
+        rect_s.append(rect_qwadro)
+
+    # for center_2 in range(500,600,40):
+    #     rect_qwadro_2=pygame.Rect(100, 100, 40, 40)
+    #     rect_qwadro_2.center=[abc,center_2]
+    #     rect_s.append(rect_qwadro_2)
+
+
+for y_center_2 in range(155,480,40):
+    for x_center_2 in range(10,100,40):
+
+        rect_qwadro_2=pygame.Rect(100, 100, 40, 40)
+        rect_qwadro_2.center=[x_center_2,y_center_2]
+        rect_s.append(rect_qwadro_2)
+
+    for center_2x in range(600,800,40):
+        rect_qwadro_2=pygame.Rect(100, 100, 40, 40)
+        rect_qwadro_2.center=[center_2x,y_center_2]
+        rect_s.append(rect_qwadro_2)
 
 
 
