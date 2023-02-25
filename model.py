@@ -4,8 +4,9 @@ import pygame
 
 
 def drive():
-    global speed, speed_t,rects_copy
-
+    global speed, speed_t,rects_copy, mod, live
+    if mod=="ball stop" or mod=="Game Over":
+        return
     rects_copy=rect_s.copy()
 
     drive_up()
@@ -30,7 +31,12 @@ def drive():
         speed_t=-speed_t
 
     if rect_around.bottom>=800:
-        print("Game Over")
+        mod = "ball stop"
+        drive_plat()
+        live=live-1
+        if live==0:
+            mod="Game Over"
+
 
 def drive_plat():
     global rect_around,speed, speed_t
@@ -135,8 +141,9 @@ def drive_right():
 
 
 
-speed = 0
-speed_t=0
+speed = 20
+speed_t=-30
+live=3
 rect_s=[]
 rects_copy=[]
 
